@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Analysis | InfraPulse AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#424754",
+                        "secondary-fixed": "#acedff",
+                        "surface-container-lowest": "#070d1f",
+                        "surface-container-high": "#23293c",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-secondary-container": "#00424e",
+                        "surface-tint": "#adc6ff",
+                        "surface-container": "#191f31",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#151b2d",
+                        "on-tertiary-fixed": "#23005c",
+                        "on-surface": "#dce1fb",
+                        "on-primary": "#002e6a",
+                        "secondary": "#4cd7f6",
+                        "inverse-on-surface": "#2a3043",
+                        "surface-container-highest": "#2e3447",
+                        "surface-dim": "#0c1324",
+                        "on-primary-fixed": "#001a42",
+                        "on-tertiary-container": "#340080",
+                        "secondary-container": "#03b5d3",
+                        "tertiary": "#d0bcff",
+                        "on-tertiary": "#3c0091",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-error": "#690005",
+                        "on-background": "#dce1fb",
+                        "inverse-surface": "#dce1fb",
+                        "background": "#0c1324",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001f26",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#d8e2ff",
+                        "outline": "#8c909f",
+                        "tertiary-container": "#a078ff",
+                        "tertiary-fixed": "#e9ddff",
+                        "primary-container": "#4d8eff",
+                        "on-surface-variant": "#c2c6d6",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "primary": "#adc6ff",
+                        "inverse-primary": "#005ac2",
+                        "on-secondary": "#003640",
+                        "surface": "#0c1324",
+                        "on-primary-container": "#00285d",
+                        "surface-bright": "#33394c",
+                        "surface-variant": "#2e3447"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "24px",
+                        "unit": "4px",
+                        "section-gap": "48px",
+                        "gutter": "16px",
+                        "card-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Geist"],
+                        "headline-lg": ["Inter"],
+                        "code-sm": ["Geist"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "code-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(76, 215, 246, 0.3);
+        }
+        .neon-glow-purple {
+            box-shadow: 0 0 20px rgba(160, 120, 255, 0.3);
+        }
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden min-h-screen flex selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-[60] bg-surface-container-lowest/80 backdrop-blur-2xl border-r border-white/5 shadow-2xl shadow-black/50 py-6">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">InfraPulse AI</h1>
+<p class="font-code-sm text-code-sm text-secondary/70 mt-1 uppercase tracking-widest flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span> Vigilance Active
+            </p>
+</div>
+<div class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="commandcenter.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Command Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary border-r-2 border-secondary bg-secondary/10 group-hover:translate-x-1 transition-all duration-200" href="digitaltwin.html">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span class="font-label-md text-label-md">Digital Twins</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="predictiveanalysis.html">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span class="font-label-md text-label-md">Predictive Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="networkmap.html">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-md text-label-md">Network Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="incidentlog.html">
+<span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>
+<span class="font-label-md text-label-md">Incident Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="systemhealth.html">
+<span class="material-symbols-outlined" data-icon="monitor_heart">monitor_heart</span>
+<span class="font-label-md text-label-md">System Health</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-b from-primary to-inverse-primary hover:from-primary-container hover:to-primary text-white font-label-md text-label-md py-3 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                Deploy AI Agent
+            </button>
+<div class="mt-6 pt-6 border-t border-white/5 space-y-3">
+<a class="flex items-center gap-3 text-on-surface-variant/50 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span>
+<span class="font-code-sm text-code-sm">Documentation</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant/50 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="support_agent">support_agent</span>
+<span class="font-code-sm text-code-sm">Support</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="w-full h-16 sticky top-0 z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(3,181,211,0.1)] flex justify-between items-center px-container-margin">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary md:hidden" data-icon="menu">menu</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50">search</span>
+<input class="bg-surface-container-high border border-white/5 rounded-full pl-10 pr-4 py-1.5 text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all w-64 text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search systems..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 relative">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 ml-2">
+<img class="w-8 h-8 rounded-full border border-white/10 object-cover" data-alt="A small, circular avatar portrait of a professional infrastructure engineer wearing a safety helmet and high-visibility vest. The portrait is high-contrast, professional, and well-lit against a dark, tech-focused background. Minimalist glassmorphism aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2UxI3QfbDj5p1BNVUXtt0407CAu3npDm-2FC08fbii5QM5x5JzkGWDKjfZ--4AJJxWdj9eYGr_BzdhHCNlprCprHSd6bj2e4dGHMoipAnFRW2HHp_mBijnCfgKc36cGEPasR4BQzkGCeUECezAW-s26EHwCyC8UpeYGPEyQK5kCeMJLSADJCQbIpxgjKaPNL5gX78MC6CeZ64iZ2C7scezDiOl6o8ck9i3ydVjfK98yTTJWL9_thClp8SBIuwhX6sAiMG7FJVCXI"/>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-gutter md:p-container-margin lg:p-section-gap flex flex-col gap-6">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<a class="text-on-surface-variant hover:text-secondary flex items-center transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="font-code-sm ml-1">Back to Twin</span>
+</a>
+<span class="text-white/20">|</span>
+<span class="font-code-sm text-secondary uppercase tracking-widest bg-secondary/10 px-2 py-0.5 rounded border border-secondary/20">BRG-7742</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-white tracking-tight flex items-center gap-3">
+                        AI Structural Scan
+                    </h2>
+</div>
+<div class="flex items-center gap-2 bg-surface-container/80 backdrop-blur-md px-4 py-2 rounded-full border border-secondary/30 shadow-[0_0_15px_rgba(76,215,246,0.15)]">
+<div class="relative w-3 h-3 flex items-center justify-center">
+<div class="absolute inset-0 bg-secondary rounded-full pulse-ring"></div>
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+</div>
+<span class="font-label-md text-secondary">Live Status: Analysis in Progress</span>
+</div>
+</div>
+<!-- Split View Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-[600px]">
+<!-- Left Column: Viewport -->
+<div class="lg:col-span-8 glass-panel rounded-xl overflow-hidden relative flex flex-col group border-secondary/30 neon-glow">
+<!-- HUD Header -->
+<div class="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/80 to-transparent pointer-events-none">
+<div class="font-code-sm text-secondary/80 flex gap-4">
+<span>CAM: UAV-04-N</span>
+<span>ZOOM: 4.2x</span>
+<span>FILTER: STRUCTURAL_DEEP</span>
+</div>
+<div class="font-code-sm text-white/50">
+                            COORD: 34.0522° N, 118.2437° W
+                        </div>
+</div>
+<!-- Image Container -->
+<div class="flex-1 relative bg-black overflow-hidden" data-alt="A highly detailed, ultra-high-resolution drone photograph of a massive concrete bridge pillar. The concrete is weathered and textured. The lighting is cinematic and moody, highlighting the structural details. High contrast, professional engineering inspection aesthetic. Shot from a slight angle." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQThXrJ6hO092hydg4HRoPqwFgyf6g6FfNxqRjtKa53DhMSCEqlvNPV_tddTM1Ass2IDQvV-yTQEHpLFb3rkjyQQFDSt2cCGXWjo8EhW_hG0R_QWRsqblbN0pnCrnnpm05HY-pyJm_Zl1VUZ6VqmxYUIIKF8yFaT-NwjklJ9gG86rjDUjdh539iQGJXgWe2-RN79XqphnceTZm17uz8cTNkF1kZoAxdW2br5S4eMovodMRd-OsV05VdX0Drn8ml7pQzMsJdAK0WTM')">
+<!-- AI Overlay: Crack 1 -->
+<div class="absolute top-[30%] left-[40%] w-[120px] h-[180px] border-2 border-secondary bg-secondary/10 rounded-sm cursor-crosshair hover:bg-secondary/20 transition-all duration-300 group/box">
+<div class="absolute -top-3 -left-3 w-3 h-3 border-t-2 border-l-2 border-secondary"></div>
+<div class="absolute -bottom-3 -right-3 w-3 h-3 border-b-2 border-r-2 border-secondary"></div>
+<!-- Label -->
+<div class="absolute top-full mt-2 left-0 w-max bg-surface-container-highest/90 backdrop-blur-md border border-white/10 p-2 rounded shadow-xl opacity-0 group-hover/box:opacity-100 transition-opacity z-20">
+<div class="font-label-md text-white">Hairline Fracture (0.4mm)</div>
+<div class="font-code-sm text-secondary mt-1">Confidence: 94%</div>
+<div class="font-code-sm text-error mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Severity: Medium
+                                </div>
+</div>
+</div>
+<!-- AI Overlay: Corrosion -->
+<div class="absolute bottom-[20%] right-[25%] w-[150px] h-[100px] border-2 border-[#a078ff] bg-[#a078ff]/10 rounded-sm cursor-crosshair hover:bg-[#a078ff]/20 transition-all duration-300 group/box">
+<div class="absolute -top-3 -right-3 w-3 h-3 border-t-2 border-r-2 border-[#a078ff]"></div>
+<div class="absolute -bottom-3 -left-3 w-3 h-3 border-b-2 border-l-2 border-[#a078ff]"></div>
+<!-- Label -->
+<div class="absolute bottom-full mb-2 right-0 w-max bg-surface-container-highest/90 backdrop-blur-md border border-white/10 p-2 rounded shadow-xl opacity-0 group-hover/box:opacity-100 transition-opacity z-20">
+<div class="font-label-md text-white">Rebar Spalling / Corrosion</div>
+<div class="font-code-sm text-[#a078ff] mt-1">Confidence: 89%</div>
+<div class="font-code-sm text-error mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Severity: High
+                                </div>
+</div>
+</div>
+<!-- Scanning Line Animation -->
+<div class="absolute left-0 right-0 h-0.5 bg-secondary top-1/2 shadow-[0_0_15px_#4cd7f6] opacity-50 z-10" style="animation: scan 4s linear infinite;"></div>
+<style>
+                            @keyframes scan {
+                                0% { top: -10%; }
+                                100% { top: 110%; }
+                            }
+                        </style>
+</div>
+<!-- HUD Footer -->
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-center gap-4 z-10">
+<button class="bg-surface/50 hover:bg-surface backdrop-blur border border-white/10 px-3 py-1.5 rounded font-code-sm text-white transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">zoom_in</span> Zoom
+                        </button>
+<button class="bg-surface/50 hover:bg-surface backdrop-blur border border-white/10 px-3 py-1.5 rounded font-code-sm text-white transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">layers</span> Toggle Overlays
+                        </button>
+</div>
+</div>
+<!-- Right Column: Sidebar Panels -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Scan Results Card -->
+<div class="glass-panel rounded-xl p-card-padding">
+<div class="flex items-center gap-2 mb-4 border-b border-white/5 pb-3">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+<h3 class="font-headline-md text-lg text-white">Scan Results</h3>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center bg-surface-container/50 p-3 rounded border border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-secondary rounded-sm"></div>
+<div>
+<div class="font-label-md text-white">Structural Cracks</div>
+<div class="font-code-sm text-on-surface-variant">Avg width: 0.3mm</div>
+</div>
+</div>
+<span class="font-headline-md text-xl text-secondary">3</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container/50 p-3 rounded border border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-[#a078ff] rounded-sm"></div>
+<div>
+<div class="font-label-md text-white">Corrosion Zones</div>
+<div class="font-code-sm text-on-surface-variant">Surface spalling detected</div>
+</div>
+</div>
+<span class="font-headline-md text-xl text-[#a078ff]">1</span>
+</div>
+</div>
+</div>
+<!-- AI Diagnostic Card -->
+<div class="glass-panel rounded-xl p-card-padding relative overflow-hidden">
+<!-- Decorative glow -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary/10 rounded-full blur-2xl"></div>
+<div class="flex items-center gap-2 mb-4 border-b border-white/5 pb-3">
+<span class="material-symbols-outlined text-secondary">neurology</span>
+<h3 class="font-headline-md text-lg text-white">AI Diagnostic</h3>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed">
+                            Detected crack propagation aligns with primary load-bearing stress vectors. High probability (87%) of <span class="text-white">tensile fatigue</span> acceleration if untreated. The associated corrosion zone suggests localized moisture ingress compromising internal rebar integrity.
+                        </p>
+<div class="mt-4 pt-4 border-t border-white/5">
+<div class="font-code-sm text-on-surface-variant mb-2">Risk Trajectory (90 Days)</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary to-error w-3/4 rounded-full relative">
+<div class="absolute right-0 top-0 bottom-0 w-4 bg-white/20 animate-pulse"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Repair Recommendations -->
+<div class="glass-panel rounded-xl p-card-padding flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-4 border-b border-white/5 pb-3">
+<span class="material-symbols-outlined text-secondary">build_circle</span>
+<h3 class="font-headline-md text-lg text-white">Recommended Action</h3>
+</div>
+<ul class="space-y-2 mb-4">
+<li class="flex items-start gap-2 font-body-md text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[16px] mt-0.5">check_circle</span>
+                                    Epoxy injection for hairline fractures (Category B).
+                                </li>
+<li class="flex items-start gap-2 font-body-md text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[16px] mt-0.5">check_circle</span>
+                                    Surface patch and anti-corrosive sealant application.
+                                </li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest/50 rounded p-3 border border-white/5 mt-4">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<div class="font-code-sm text-on-surface-variant">Est. Cost</div>
+<div class="font-headline-md text-white text-lg mt-1">₹12.5 Lakhs</div>
+</div>
+<div>
+<div class="font-code-sm text-on-surface-variant">Est. Time</div>
+<div class="font-headline-md text-white text-lg mt-1">14 Days</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section -->
+<div class="glass-panel rounded-xl p-card-padding flex flex-col md:flex-row justify-between items-center gap-6">
+<!-- Historical Scans -->
+<div class="w-full md:w-auto flex-1">
+<h4 class="font-label-md text-white mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">history</span> Historical Scans
+                    </h4>
+<div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+<!-- Thumbnail 1 -->
+<div class="group cursor-pointer shrink-0">
+<div class="w-24 h-16 bg-surface-container rounded border border-white/10 overflow-hidden relative group-hover:border-secondary transition-colors">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Small thumbnail image of a concrete bridge pillar showing minor wear. Drone footage style. Low contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOv8b0jW41BfJ2C8A96DM1n8mPsSuHYAOu42Rvjjl9i-RMVzlNxSkonorzLi0HG9pvgWalJsfe8luaGv7CVhJ2Jy1QOwRTQx9tkJ4cTK0RE3WJa4Lp1hpTJCPti53t0vMwxIQyPqOSVKo4tcKzSgiXDhZjxxj_DbSSI9jHLLR2Cmxrk_r5aj1y6PXyZU3O8i5YLFccYSqhyyGD_SMsKMFUFP2yDDGuuEQBv-IAuprPz9oHHW4D5KkEYiEuLI4DnJ1fmnC7nBM40NQ"/>
+</div>
+<div class="font-code-sm text-on-surface-variant mt-1 text-center">Oct 2023</div>
+</div>
+<!-- Thumbnail 2 -->
+<div class="group cursor-pointer shrink-0">
+<div class="w-24 h-16 bg-surface-container rounded border border-white/10 overflow-hidden relative group-hover:border-secondary transition-colors">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="Small thumbnail image of a concrete bridge pillar showing emerging cracks. Drone footage style. Moody lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGQ6JIy2ozLfWSD2fYIufiHoWdP0Rbw-iTA-H7lCUKR_rA3I-5hE8WgT0RTT1RTwMN8WP_NYDg8nFs2h5Wnfg8t0AHdhr0xxNVwc0VMJb1CQm5NrHcMat-filAdqLYCKn0Zmsuw8iicCn4P5C9DEbEGw2chaN3-MhylkxUNLgNRDYeiRSvTuioq5cqfampZciuwD_X8pI9_PqNMNKbDwmP-m39lNijAb7ba7OFzZuXTN7WaZqmESHZ2JVXVKizAPEgMstgfg0uoMw"/>
+</div>
+<div class="font-code-sm text-on-surface-variant mt-1 text-center">Feb 2024</div>
+</div>
+<!-- Thumbnail 3 (Current) -->
+<div class="group shrink-0">
+<div class="w-24 h-16 bg-surface-container rounded border-2 border-secondary overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="Small thumbnail image of a concrete bridge pillar with visible cracks and corrosion. Drone footage style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzeBVEMqnUtlXITWlR1QbHmsvrXjx3J8SUITCnMIZ1jbHljK-lXwgRnBCBoVmAy0aefmt178st2Xfrf1O8Ts1Pf5qJfK0-mDLOHA5yr3mV9_Jjb2QIduRxxtwF0RhdyOVviUZxez1n8wxEv7PXuO9PZQb2ZWQ6QB4P7rz7PZ89w7vILb2i8CgzGj6FupZdopjXjROJiBMayJJkGUbtEC0HWvJ9KYI0oDmntxcMlaR8G53WjiVZo1Z3yHojsaIcO25XwR6PQiQTgB4"/>
+<div class="absolute inset-0 bg-secondary/20"></div>
+</div>
+<div class="font-code-sm text-secondary mt-1 text-center font-bold">Current</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-wrap gap-3 justify-end w-full md:w-auto">
+<button class="px-4 py-2 rounded border border-white/10 hover:bg-surface-variant transition-colors font-label-md text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">thermostat</span> Re-scan Thermal
+                    </button>
+<button class="px-4 py-2 rounded border border-secondary text-secondary hover:bg-secondary/10 transition-colors font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF Report
+                    </button>
+<button class="px-6 py-2 rounded bg-gradient-to-b from-primary to-inverse-primary hover:from-primary-container hover:to-primary text-white font-label-md shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">engineering</span> Assign Crew
+                    </button>
+</div>
+</div>
+</main>
+</div>
+<style>
+        /* Hide scrollbar for clean horizontal scrolling */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>

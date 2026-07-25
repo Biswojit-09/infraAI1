@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>InfraPulse AI - Incident Log</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#0c1324",
+                      "on-tertiary-fixed": "#23005c",
+                      "on-secondary-fixed-variant": "#004e5c",
+                      "outline": "#8c909f",
+                      "surface-variant": "#2e3447",
+                      "surface-container-highest": "#2e3447",
+                      "surface-container-high": "#23293c",
+                      "primary-fixed": "#d8e2ff",
+                      "primary-container": "#4d8eff",
+                      "error-container": "#93000a",
+                      "primary": "#adc6ff",
+                      "surface": "#0c1324",
+                      "tertiary-fixed-dim": "#d0bcff",
+                      "secondary": "#4cd7f6",
+                      "on-surface-variant": "#c2c6d6",
+                      "on-background": "#dce1fb",
+                      "on-surface": "#dce1fb",
+                      "on-primary-container": "#00285d",
+                      "on-error-container": "#ffdad6",
+                      "error": "#ffb4ab",
+                      "secondary-fixed-dim": "#4cd7f6",
+                      "on-primary-fixed": "#001a42",
+                      "on-secondary-container": "#00424e",
+                      "on-secondary": "#003640",
+                      "outline-variant": "#424754",
+                      "inverse-primary": "#005ac2",
+                      "secondary-container": "#03b5d3",
+                      "surface-container-lowest": "#070d1f",
+                      "tertiary-container": "#a078ff",
+                      "surface-container": "#191f31",
+                      "surface-tint": "#adc6ff",
+                      "inverse-on-surface": "#2a3043",
+                      "on-tertiary-fixed-variant": "#5516be",
+                      "surface-dim": "#0c1324",
+                      "secondary-fixed": "#acedff",
+                      "on-secondary-fixed": "#001f26",
+                      "tertiary": "#d0bcff",
+                      "inverse-surface": "#dce1fb",
+                      "on-primary": "#002e6a",
+                      "tertiary-fixed": "#e9ddff",
+                      "surface-container-low": "#151b2d",
+                      "primary-fixed-dim": "#adc6ff",
+                      "surface-bright": "#33394c",
+                      "on-tertiary": "#3c0091",
+                      "on-primary-fixed-variant": "#004395",
+                      "on-error": "#690005",
+                      "on-tertiary-container": "#340080"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "section-gap": "48px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "container-margin": "24px",
+                      "card-padding": "20px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "code-sm": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "code-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #020617; /* Deep base layer */
+            color: theme('colors.on-surface');
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-header {
+            background: rgba(2, 6, 23, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .neon-glow-primary {
+            box-shadow: 0 0 20px rgba(173, 198, 255, 0.3);
+        }
+        
+        .neon-glow-error {
+            box-shadow: 0 0 20px rgba(255, 180, 171, 0.4);
+        }
+        
+        .neon-glow-warning {
+            box-shadow: 0 0 20px rgba(255, 218, 106, 0.3);
+        }
+
+        /* Status Animations */
+        @keyframes pulse-ripple {
+            0% { transform: scale(1); opacity: 0.8; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        .status-dot-active::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 50%;
+            animation: pulse-ripple 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        /* Custom Scrollbar for dense data */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row font-body-md text-body-md">
+<!-- TopNavBar (Mobile Only / Top Layer) -->
+<header class="w-full h-16 sticky top-0 z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 shadow-[0_0_20px_rgba(3,181,211,0.1)] flex justify-between items-center px-container-margin md:hidden">
+<div class="font-display-lg text-display-lg bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent !text-[24px] !leading-none">InfraPulse AI</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform"><span class="material-symbols-outlined">notifications_active</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform"><span class="material-symbols-outlined">settings_input_component</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform"><span class="material-symbols-outlined">account_circle</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform" id="mobile-menu-btn"><span class="material-symbols-outlined">menu</span></button>
+</div>
+</header>
+<!-- SideNavBar (Desktop & Mobile Drawer) -->
+<nav class="h-screen w-64 fixed left-0 top-0 z-[60] bg-surface-container-lowest/80 backdrop-blur-2xl border-r border-white/5 shadow-2xl shadow-black/50 flex flex-col h-full py-6 transform -translate-x-full md:translate-x-0 transition-transform duration-300" id="side-nav">
+<div class="px-6 mb-8 flex justify-between items-center md:block">
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">InfraPulse AI</h1>
+<div class="flex items-center gap-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-secondary relative status-dot-active"></div>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest text-[10px]">Vigilance Active</span>
+</div>
+</div>
+<button class="md:hidden text-on-surface-variant p-2" id="close-menu-btn"><span class="material-symbols-outlined">close</span></button>
+</div>
+<div class="flex-1 overflow-y-auto px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="commandcenter.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Command Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="digitaltwin.html">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-label-md text-label-md">Digital Twins</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="predictiveanalysis.html">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-md text-label-md">Predictive Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="networkmap.html">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-md text-label-md">Network Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary border-r-2 border-secondary bg-secondary/10 group-hover:translate-x-1 transition-all duration-200" href="incidentlog.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history_toggle_off</span>
+<span class="font-label-md text-label-md">Incident Log</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant/70 hover:bg-surface-variant/50 hover:text-on-surface group-hover:translate-x-1 transition-all duration-200" href="systemhealth.html">
+<span class="material-symbols-outlined">monitor_heart</span>
+<span class="font-label-md text-label-md">System Health</span>
+</a>
+</div>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 px-4 rounded-lg bg-gradient-to-b from-primary to-inverse-primary text-on-primary font-label-md text-label-md font-semibold hover:shadow-[0_0_15px_rgba(173,198,255,0.4)] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+                Deploy AI Agent
+            </button>
+<div class="mt-6 pt-4 border-t border-white/5 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant/70 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span class="font-code-sm text-code-sm">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant/70 hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+<span class="font-code-sm text-code-sm">Support</span>
+</a>
+</div>
+<div class="mt-6 flex items-center gap-3 px-4">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/10">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A macro shot of a sleek, futuristic avatar icon with glowing blue circuitry lines against a dark obsidian background, highly detailed, dramatic lighting, conveying advanced AI administration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqXz8I3OFGeX4sw3KR6dMvYjx60FDD4PCdPrVkQcOp9wnqGIiTlAGZa0WyoNYMWwX_8aXe3wLSHn1CAFsIH6SgvmR0celb7jR_eJAHmv4vaOTHCa8EW0kOglaU0RBod1u5l7W0rU5S_g2_ErLDgIqz2oMKZWt1LHLoGY1A4oTJ7zYLm9qi0ND4R_-mZF-71ZZ_CTzklokA6rQyL1JnLTu9lE7NTM6u0TzkbgXJPYIkmqjOhx9mu8A4HZ8kGTZ_6Trb8SM-VlgcH4E"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Admin_01</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant/50">Level 5 Access</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Overlay for mobile drawer -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden md:hidden" id="nav-overlay"></div>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-4 md:p-container-margin md:pt-8 min-h-screen flex flex-col gap-section-gap relative">
+<!-- Ambient Background Element -->
+<div class="absolute top-0 right-0 w-[800px] h-[600px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none -z-10 mix-blend-screen"></div>
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Incident Log</h2>
+<p class="text-on-surface-variant font-body-md text-body-md max-w-2xl">Real-time telemetry and historical records of structural anomalies, system deviations, and network health events.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-[20px]">search</span>
+<input class="bg-surface-container-high/50 border border-white/10 rounded-lg pl-10 pr-4 py-2 font-code-sm text-code-sm text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/50 w-full md:w-64 transition-all shadow-inner" placeholder="Search incidents by ID, node, or status..." type="text"/>
+</div>
+<button class="glass-card p-2 rounded-lg text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="glass-card p-2 rounded-lg text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</header>
+<!-- Main Layout: Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full flex-1">
+<!-- Left Column: Incident Feed (Span 7) -->
+<section class="lg:col-span-8 flex flex-col gap-4">
+<!-- Filters Bar -->
+<div class="glass-panel rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 border border-white/10">
+<div class="flex flex-wrap items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant/70 mr-2">Severity:</span>
+<button class="px-3 py-1 rounded-full text-[12px] font-medium bg-error/10 text-error border border-error/20 hover:bg-error/20 transition-colors flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error"></span> Critical
+                        </button>
+<button class="px-3 py-1 rounded-full text-[12px] font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 hover:bg-yellow-500/20 transition-colors flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-yellow-400"></span> Warning
+                        </button>
+<button class="px-3 py-1 rounded-full text-[12px] font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Info
+                        </button>
+</div>
+<div class="flex items-center gap-2">
+<select class="bg-transparent border-none text-code-sm text-on-surface-variant focus:ring-0 cursor-pointer pl-0">
+<option value="all">All Asset Types</option>
+<option value="bridge">Bridge Struct.</option>
+<option value="grid">Power Grid</option>
+<option value="sensor">Sensor Array</option>
+</select>
+<div class="w-px h-4 bg-white/10 mx-1"></div>
+<select class="bg-transparent border-none text-code-sm text-on-surface-variant focus:ring-0 cursor-pointer pl-0">
+<option value="24h">Last 24 Hours</option>
+<option value="7d">Last 7 Days</option>
+<option value="30d">Last 30 Days</option>
+</select>
+</div>
+</div>
+<!-- Incident Table/List Container -->
+<div class="glass-card rounded-xl border border-white/10 flex-1 overflow-hidden flex flex-col">
+<div class="glass-header px-4 py-3 grid grid-cols-12 gap-4 items-center">
+<div class="col-span-3 lg:col-span-2 font-label-md text-label-md text-on-surface-variant/70 uppercase tracking-wider text-[11px]">ID / Time</div>
+<div class="col-span-5 lg:col-span-4 font-label-md text-label-md text-on-surface-variant/70 uppercase tracking-wider text-[11px]">Incident Details</div>
+<div class="col-span-4 lg:col-span-3 font-label-md text-label-md text-on-surface-variant/70 uppercase tracking-wider text-[11px]">Asset / Node</div>
+<div class="hidden lg:block lg:col-span-2 font-label-md text-label-md text-on-surface-variant/70 uppercase tracking-wider text-[11px]">Status</div>
+<div class="hidden lg:block lg:col-span-1"></div>
+</div>
+<div class="overflow-y-auto flex-1 p-2 space-y-1">
+<!-- Item 1: Critical (Selected State) -->
+<div class="grid grid-cols-12 gap-4 items-center p-3 rounded-lg bg-surface-container/50 border border-secondary/30 relative overflow-hidden group cursor-pointer">
+<div class="absolute inset-0 bg-gradient-to-r from-secondary/5 to-transparent pointer-events-none"></div>
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="col-span-3 lg:col-span-2 flex flex-col gap-1 z-10">
+<span class="font-code-sm text-code-sm text-on-surface">INC-9042</span>
+<span class="text-[11px] text-on-surface-variant/60">10:42:05 AM</span>
+</div>
+<div class="col-span-5 lg:col-span-4 flex flex-col gap-1 z-10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error neon-glow-error"></span>
+<span class="font-label-md text-label-md text-error font-semibold truncate">Structural Vibration Anomaly</span>
+</div>
+<span class="text-[11px] text-on-surface-variant/70 truncate">Amplitude exceeds safety threshold by 14%</span>
+</div>
+<div class="col-span-4 lg:col-span-3 flex flex-col gap-1 z-10">
+<span class="font-code-sm text-code-sm text-on-surface truncate">BRDG-N-SEC4</span>
+<span class="text-[11px] text-on-surface-variant/60 truncate">Golden Gate - N Tower</span>
+</div>
+<div class="hidden lg:flex lg:col-span-2 items-center gap-2 z-10">
+<div class="px-2 py-1 rounded bg-secondary/10 border border-secondary/20 text-secondary text-[10px] uppercase font-bold tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span> Active
+                                </div>
+</div>
+<div class="hidden lg:flex lg:col-span-1 justify-end z-10">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary transition-colors">chevron_right</span>
+</div>
+</div>
+<!-- Item 2: Warning -->
+<div class="grid grid-cols-12 gap-4 items-center p-3 rounded-lg hover:bg-surface-variant/30 border border-transparent transition-colors group cursor-pointer">
+<div class="col-span-3 lg:col-span-2 flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-on-surface-variant group-hover:text-on-surface transition-colors">INC-9041</span>
+<span class="text-[11px] text-on-surface-variant/50">09:15:22 AM</span>
+</div>
+<div class="col-span-5 lg:col-span-4 flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+<span class="font-label-md text-label-md text-on-surface truncate">Thermal Fluctuation</span>
+</div>
+<span class="text-[11px] text-on-surface-variant/60 truncate">Cooling system efficiency degraded 8%</span>
+</div>
+<div class="col-span-4 lg:col-span-3 flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-on-surface-variant group-hover:text-on-surface transition-colors truncate">PWR-SUB-8B</span>
+<span class="text-[11px] text-on-surface-variant/50 truncate">Substation Alpha</span>
+</div>
+<div class="hidden lg:flex lg:col-span-2 items-center gap-2">
+<div class="px-2 py-1 rounded bg-surface-container-high border border-white/5 text-on-surface-variant text-[10px] uppercase font-bold tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">search</span> Investigating
+                                </div>
+</div>
+<div class="hidden lg:flex lg:col-span-1 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+<!-- Item 3: Info -->
+<div class="grid grid-cols-12 gap-4 items-center p-3 rounded-lg hover:bg-surface-variant/30 border border-transparent transition-colors group cursor-pointer">
+<div class="col-span-3 lg:col-span-2 flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-on-surface-variant group-hover:text-on-surface transition-colors">INC-9038</span>
+<span class="text-[11px] text-on-surface-variant/50">Yesterday, 23:45</span>
+</div>
+<div class="col-span-5 lg:col-span-4 flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary/50"></span>
+<span class="font-label-md text-label-md text-on-surface/80 truncate">Firmware Update Pending</span>
+</div>
+<span class="text-[11px] text-on-surface-variant/50 truncate">Scheduled maintenance window required</span>
+</div>
+<div class="col-span-4 lg:col-span-3 flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-on-surface-variant group-hover:text-on-surface transition-colors truncate">SENS-ARR-V2</span>
+<span class="text-[11px] text-on-surface-variant/50 truncate">Perimeter Network</span>
+</div>
+<div class="hidden lg:flex lg:col-span-2 items-center gap-2">
+<div class="px-2 py-1 rounded bg-surface-container-high border border-white/5 text-on-surface-variant text-[10px] uppercase font-bold tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span> Scheduled
+                                </div>
+</div>
+<div class="hidden lg:flex lg:col-span-1 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+<!-- Item 4: Resolved -->
+<div class="grid grid-cols-12 gap-4 items-center p-3 rounded-lg hover:bg-surface-variant/30 border border-transparent transition-colors group cursor-pointer opacity-70 hover:opacity-100">
+<div class="col-span-3 lg:col-span-2 flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-on-surface-variant line-through decoration-white/20">INC-9021</span>
+<span class="text-[11px] text-on-surface-variant/50">Yesterday, 14:10</span>
+</div>
+<div class="col-span-5 lg:col-span-4 flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-gray-500"></span>
+<span class="font-label-md text-label-md text-on-surface-variant truncate">Telemetry Drop (Restored)</span>
+</div>
+<span class="text-[11px] text-on-surface-variant/50 truncate">Packet loss resolved via reroute</span>
+</div>
+<div class="col-span-4 lg:col-span-3 flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-on-surface-variant truncate">COMM-RELAY-9</span>
+<span class="text-[11px] text-on-surface-variant/50 truncate">Central Hub</span>
+</div>
+<div class="hidden lg:flex lg:col-span-2 items-center gap-2">
+<div class="px-2 py-1 rounded bg-surface-container-high border border-white/5 text-on-surface-variant/50 text-[10px] uppercase font-bold tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> Resolved
+                                </div>
+</div>
+<div class="hidden lg:flex lg:col-span-1 justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Pagination/Footer -->
+<div class="glass-header px-4 py-2 border-t border-white/10 flex justify-between items-center">
+<span class="text-[11px] text-on-surface-variant/50 font-code-sm">Showing 1-24 of 1,042 incidents</span>
+<div class="flex gap-1">
+<button class="p-1 text-on-surface-variant hover:text-white transition-colors disabled:opacity-30"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="p-1 text-on-surface-variant hover:text-white transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Detail View (Span 4) -->
+<aside class="lg:col-span-4 glass-card rounded-xl border border-secondary/30 flex flex-col relative overflow-hidden neon-glow-primary/10">
+<!-- Detail Header -->
+<div class="glass-header p-4 border-b border-white/10 relative z-10">
+<div class="flex justify-between items-start mb-3">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded bg-error/20 text-error text-[10px] uppercase font-bold border border-error/30 tracking-wider">Critical</span>
+<span class="text-[11px] text-on-surface-variant/50 font-code-sm">INC-9042</span>
+</div>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface font-semibold">Structural Vibration Anomaly</h3>
+</div>
+<button class="text-on-surface-variant hover:text-white transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<div class="flex gap-4 text-[12px] text-on-surface-variant/70 font-code-sm">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 10:42:05 AM (2m ago)</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">timer</span> TTR: --</div>
+</div>
+</div>
+<!-- Detail Body -->
+<div class="p-4 flex-1 overflow-y-auto space-y-6 relative z-10">
+<!-- Context Map Placeholder -->
+<div class="w-full h-32 rounded-lg bg-surface-container border border-white/5 relative overflow-hidden group">
+<div class="w-full h-full bg-cover bg-center opacity-70 group-hover:opacity-100 transition-opacity duration-500" data-alt="A stylized, dark-mode satellite map view of a suspension bridge, overlaid with glowing red stress indicators, futuristic UI elements, and a high-tech tracking reticle pinpointing an anomaly on the north tower." data-location="San Francisco" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD3LmHcX2Az8_MA7Xez-zljXqk1fSXEj-dL2Lk6kMW9kr1BLku9KTCoZvMTNcZ4Qx42abc9x5yUnsoESWZwQyC6dEAxM1og_NitioqBaOnizbBT_EKsxluWgX0o1cAUwbTeXuGgqAWr8qHj24M2Y16I31uA3hj6EnSMloYVDc5pnmu412LpoHAsPk4yXEwqFi_p4v8ZkoA81yC8YWn5-tZix7-1f_Lw2pH-e3-p3FnN12B7vCnwW54HL3b_0P9o4SL7uSkKC-Aid4U')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-between items-end">
+<div>
+<div class="text-[10px] text-secondary font-code-sm uppercase tracking-wider mb-0.5 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">my_location</span> 37.8201° N, 122.4783° W</div>
+<div class="font-label-md text-[13px] text-white">Golden Gate - N Tower (BRDG-N-SEC4)</div>
+</div>
+</div>
+<!-- Pulsing marker -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-error z-10">
+<div class="absolute inset-0 rounded-full bg-error animate-ping opacity-75"></div>
+</div>
+</div>
+<!-- Telemetry Data Grid -->
+<div>
+<h4 class="text-[11px] text-on-surface-variant/50 uppercase tracking-widest font-semibold mb-3">Live Telemetry</h4>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-high/50 rounded-lg p-3 border border-white/5">
+<div class="text-[10px] text-on-surface-variant mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">waves</span> Frequency</div>
+<div class="font-code-sm text-error text-[16px]">4.2 Hz <span class="text-[10px] text-error/70">↑ 1.1</span></div>
+</div>
+<div class="bg-surface-container-high/50 rounded-lg p-3 border border-white/5">
+<div class="text-[10px] text-on-surface-variant mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">open_with</span> Amplitude</div>
+<div class="font-code-sm text-error text-[16px]">12.5 mm <span class="text-[10px] text-error/70">↑ 2.4</span></div>
+</div>
+<div class="bg-surface-container-high/50 rounded-lg p-3 border border-white/5">
+<div class="text-[10px] text-on-surface-variant mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">air</span> Wind Load</div>
+<div class="font-code-sm text-on-surface text-[14px]">45 km/h</div>
+</div>
+<div class="bg-surface-container-high/50 rounded-lg p-3 border border-white/5">
+<div class="text-[10px] text-on-surface-variant mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">thermostat</span> Surface Temp</div>
+<div class="font-code-sm text-on-surface text-[14px]">14°C</div>
+</div>
+</div>
+</div>
+<!-- Description -->
+<div>
+<h4 class="text-[11px] text-on-surface-variant/50 uppercase tracking-widest font-semibold mb-2">AI Diagnostic Assessment</h4>
+<p class="text-[13px] text-on-surface-variant leading-relaxed">
+                            Detected harmonic oscillation exceeding design envelope for current weather conditions. Potential localized stress near Expansion Joint 4B. Risk of accelerated fatigue if sustained.
+                        </p>
+</div>
+<!-- Assignment -->
+<div>
+<h4 class="text-[11px] text-on-surface-variant/50 uppercase tracking-widest font-semibold mb-2">Response Team</h4>
+<div class="flex items-center justify-between bg-surface-container-high/30 p-2 rounded-lg border border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant border border-dashed border-white/20">
+<span class="material-symbols-outlined text-[16px]">person_add</span>
+</div>
+<div>
+<div class="text-[13px] text-on-surface font-medium">Unassigned</div>
+<div class="text-[11px] text-on-surface-variant/60">Awaiting dispatch</div>
+</div>
+</div>
+<button class="text-secondary text-[12px] font-medium hover:text-white transition-colors">Assign</button>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="glass-header p-4 border-t border-white/10 mt-auto z-10 flex gap-3">
+<button class="flex-1 py-2.5 rounded-lg border border-secondary text-secondary font-label-md text-label-md hover:bg-secondary/10 transition-colors bg-transparent relative overflow-hidden group">
+<span class="absolute inset-0 bg-secondary/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
+<span class="relative z-10">Acknowledge</span>
+</button>
+<button class="flex-[2] py-2.5 rounded-lg bg-error text-white font-label-md text-label-md font-bold shadow-[0_0_15px_rgba(255,180,171,0.3)] hover:shadow-[0_0_20px_rgba(255,180,171,0.5)] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">engineering</span>
+                        Dispatch Crew
+                    </button>
+</div>
+<!-- Subtle background gradient for critical state -->
+<div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-error/5 to-transparent pointer-events-none z-0"></div>
+</aside>
+</div>
+</main>
+<script>
+        // Simple mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('side-nav').classList.remove('-translate-x-full');
+            document.getElementById('nav-overlay').classList.remove('hidden');
+        });
+
+        document.getElementById('close-menu-btn').addEventListener('click', function() {
+            document.getElementById('side-nav').classList.add('-translate-x-full');
+            document.getElementById('nav-overlay').classList.add('hidden');
+        });
+
+        document.getElementById('nav-overlay').addEventListener('click', function() {
+            document.getElementById('side-nav').classList.add('-translate-x-full');
+            document.getElementById('nav-overlay').classList.add('hidden');
+        });
+    </script>
+</body></html>

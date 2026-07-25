@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>InfraPulse AI - Infrastructure Operating System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#23005c",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "background": "#020617",
+                        "surface-container-high": "#23293c",
+                        "primary-fixed": "#d8e2ff",
+                        "primary-container": "#4d8eff",
+                        "outline": "#8c909f",
+                        "surface-variant": "#2e3447",
+                        "surface-container-highest": "#2e3447",
+                        "surface": "#0c1324",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "on-background": "#dce1fb",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary": "#4cd7f6",
+                        "on-surface": "#dce1fb",
+                        "error-container": "#93000a",
+                        "primary": "#adc6ff",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-primary-fixed": "#001a42",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#00285d",
+                        "error": "#ffb4ab",
+                        "outline-variant": "#424754",
+                        "inverse-primary": "#005ac2",
+                        "on-secondary-container": "#00424e",
+                        "on-secondary": "#003640",
+                        "surface-container": "#191f31",
+                        "tertiary-container": "#a078ff",
+                        "surface-tint": "#adc6ff",
+                        "inverse-on-surface": "#2a3043",
+                        "secondary-container": "#03b5d3",
+                        "surface-container-lowest": "#070d1f",
+                        "on-secondary-fixed": "#001f26",
+                        "tertiary": "#d0bcff",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "surface-dim": "#0c1324",
+                        "secondary-fixed": "#acedff",
+                        "surface-bright": "#33394c",
+                        "on-tertiary": "#3c0091",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-tertiary-container": "#340080",
+                        "inverse-surface": "#dce1fb",
+                        "on-primary": "#002e6a",
+                        "surface-container-low": "#151b2d",
+                        "primary-fixed-dim": "#adc6ff",
+                        "tertiary-fixed": "#e9ddff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "container-margin": "24px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "card-padding": "20px",
+                        "section-gap": "48px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Geist"],
+                        "code-sm": ["Geist"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "500" }],
+                        "code-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .neon-text {
+            text-shadow: 0 0 10px rgba(173, 198, 255, 0.5);
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav aria-label="Top Navigation" class="bg-surface/60 backdrop-blur-xl w-full h-16 sticky top-0 z-50 border-b border-white/10 shadow-[0_0_20px_rgba(3,181,211,0.1)] flex flex-col">
+<div class="flex justify-between items-center px-container-margin w-full h-full">
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-headline-md bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent tracking-tight">InfraPulse AI</span>
+</div>
+<div class="hidden md:flex items-center gap-2 lg:gap-4 flex-wrap">
+<a class="text-primary font-bold hover:text-primary transition-colors duration-300 active:scale-95 transition-transform text-label-md" href="index.html">Home</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform text-label-md" href="commandcenter.html">Command Center</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform text-label-md" href="digitaltwin.html">Digital Twin</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform text-label-md" href="predictiveanalysis.html">Analytics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform text-label-md" href="networkmap.html">Network Map</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform text-label-md" href="incidentlog.html">Incident Log</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 active:scale-95 transition-transform text-label-md" href="systemhealth.html">System Health</a>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Search" class="text-secondary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button aria-label="Notifications" class="text-secondary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<button aria-label="Settings" class="text-secondary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">settings_input_component</span>
+</button>
+<button aria-label="Account" class="text-secondary hover:text-primary transition-colors duration-300 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col relative w-full">
+<!-- Hero Section with Shaders -->
+<section class="relative min-h-[921px] flex items-center justify-center overflow-hidden px-container-margin py-section-gap">
+<!-- Background Shaders -->
+<div class="absolute inset-0 z-0 opacity-40">
+<!-- STITCH_SHADER_START:ANIMATION_1 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_1" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_1');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 mouse = u_mouse / u_resolution;
+    
+    // Create a subtle digital grid
+    vec2 grid = fract(uv * 40.0 + u_time * 0.05);
+    float line = smoothstep(0.02, 0.0, grid.x) + smoothstep(0.02, 0.0, grid.y);
+    
+    // Dynamic glow following mouse
+    float dist = length(uv - mouse);
+    float glow = smoothstep(0.4, 0.0, dist) * 0.3;
+    
+    // Moving pulse waves
+    float pulse = sin(uv.y * 10.0 - u_time * 2.0) * 0.5 + 0.5;
+    pulse *= sin(uv.x * 5.0 + u_time) * 0.5 + 0.5;
+    
+    vec3 color1 = vec3(0.0, 0.4, 1.0); // Electric Blue
+    vec3 color2 = vec3(0.5, 0.0, 1.0); // Deep Purple
+    vec3 color3 = vec3(0.0, 1.0, 0.8); // Cyan
+    
+    vec3 finalColor = mix(color1, color2, uv.x);
+    finalColor = mix(finalColor, color3, pulse * 0.3);
+    finalColor += glow * color1;
+    finalColor *= (0.05 + line * 0.05); // Darken and add grid
+    
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_1 -->
+</div>
+<div class="absolute inset-0 z-10 opacity-70 pointer-events-none mix-blend-screen">
+<!-- STITCH_THREEJS_START:ANIMATION_2 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_2" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_2');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+container.appendChild(renderer.domElement);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+const pointLight = new THREE.PointLight(0x00ffff, 2);
+pointLight.position.set(5, 5, 5);
+scene.add(pointLight);
+
+// Simple Bridge representation using primitives
+const bridgeGroup = new THREE.Group();
+
+const roadGeo = new THREE.BoxGeometry(10, 0.2, 2);
+const roadMat = new THREE.MeshPhongMaterial({ color: 0x1e293b, emissive: 0x0ea5e9, emissiveIntensity: 0.2 });
+const road = new THREE.Mesh(roadGeo, roadMat);
+bridgeGroup.add(road);
+
+// Pillars
+const pillarGeo = new THREE.CylinderGeometry(0.2, 0.2, 4);
+const pillarMat = new THREE.MeshPhongMaterial({ color: 0x64748b });
+for (let i = -4; i <= 4; i += 2) {
+    const p = new THREE.Mesh(pillarGeo, pillarMat);
+    p.position.set(i, -2, 0);
+    bridgeGroup.add(p);
+}
+
+// Cables/Architecture (Cyberpunk style)
+const lineMat = new THREE.LineBasicMaterial({ color: 0x06b6d4 });
+for (let i = -5; i <= 5; i += 0.5) {
+    const points = [];
+    points.push(new THREE.Vector3(i, 0.1, 1));
+    points.push(new THREE.Vector3(0, 4, 0));
+    points.push(new THREE.Vector3(i, 0.1, -1));
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(geometry, lineMat);
+    bridgeGroup.add(line);
+}
+
+scene.add(bridgeGroup);
+camera.position.z = 12;
+camera.position.y = 2;
+
+function animate() {
+    requestAnimationFrame(animate);
+    bridgeGroup.rotation.y += 0.005;
+    bridgeGroup.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_2 -->
+</div>
+<!-- Hero Content -->
+<div class="relative z-20 max-w-5xl mx-auto text-center flex flex-col items-center">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-8 animate-fade-in-up">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse shadow-[0_0_8px_rgba(76,215,246,0.8)]"></span>
+<span class="font-label-md text-label-md text-secondary">System Online • Vigilance Active</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6 animate-fade-in-up delay-100 neon-text">
+                    AI Infrastructure Operating System<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-tertiary-container">for Smart Cities</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto mb-10 animate-fade-in-up delay-200">
+                    Monitor Bridges, Roads, Railways, and Public Infrastructure using AI, IoT and Digital Twins. Predictive intelligence to prevent catastrophic failures before they happen.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
+<button class="bg-gradient-to-b from-inverse-primary to-primary-container text-white font-label-md text-label-md px-8 py-4 rounded-lg shadow-[0_0_20px_rgba(77,142,255,0.4)] hover:shadow-[0_0_30px_rgba(77,142,255,0.6)] transition-all active:scale-95 flex items-center justify-center gap-2">
+                        Explore Platform
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+<button class="bg-transparent border border-secondary text-secondary font-label-md text-label-md px-8 py-4 rounded-lg hover:bg-secondary/10 transition-all active:scale-95 flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+                        Watch Live Demo
+                    </button>
+</div>
+</div>
+<!-- Bottom Fade -->
+<div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-20"></div>
+</section>
+<!-- Statistics Section -->
+<section class="py-section-gap px-container-margin relative z-30 -mt-20">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Stat 1 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col items-center justify-center text-center animate-fade-in-up delay-200 group hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 0;">query_stats</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-2 stat-counter" data-target="120000">0</h3>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Infrastructure Monitored</p>
+</div>
+<!-- Stat 2 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col items-center justify-center text-center animate-fade-in-up delay-300 group hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 0;">precision_manufacturing</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-2 flex items-center justify-center">
+<span class="stat-counter" data-decimal="1" data-target="98.4">0</span>%
+                    </h3>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Prediction Accuracy</p>
+</div>
+<!-- Stat 3 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col items-center justify-center text-center animate-fade-in-up delay-400 group hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4 group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 0;">savings</span>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-2 flex items-center justify-center">
+                        ₹<span class="stat-counter" data-target="1200">0</span> Cr+
+                    </h3>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Savings Generated</p>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-section-gap px-container-margin relative z-30">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-12 animate-fade-in-up">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Core Intelligence Modules</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Modular AI capabilities designed specifically for heavy infrastructure analysis.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[250px]">
+<!-- AI Crack Detection (Spans 8 cols) -->
+<div class="md:col-span-8 glass-panel rounded-xl p-card-padding relative overflow-hidden group flex flex-col justify-end animate-fade-in-up">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-500 z-0" data-alt="A highly detailed 3D visualization of a concrete bridge structure with glowing blue neon lines highlighting microscopic cracks and stress points. The background is a dark, sleek obsidian surface with abstract glassmorphic elements. The lighting is low-key, dramatic, with intense blue technological light emanating from the structural analysis vectors, conveying a futuristic, high-tech engineering aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAMJa9XDUlrXtyNExnhr35WFnGNbj7SCfp5LQzjhP-7XVHGp-uYr6JD41NoK6LLeR1iMT2VFLV8DmnqbhlgGTX-SeKEG7iW7bTQFnyeeyKR5fLCuT7xspm3MOwGuAh0Pi-zRYiC2LyBoOT_1HdOVMgbfdVPvnSuugqqksDQfVC6pwJ3tXDcZwE0txPLALZ4HTNcR0I1imTjx3UwI-urPb9svdcuJLmSPEZUR_PnQeeCn8jGdky5OUi8pW0NlKAO1zTwaZyITfjOA-k')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-10"></div>
+<div class="relative z-20">
+<span class="material-symbols-outlined text-secondary text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">monitor_heart</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">AI Crack Detection</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Computer vision algorithms scan concrete surfaces in real-time to identify micro-fractures before they propagate.</p>
+</div>
+</div>
+<!-- Digital Twin (Spans 4 cols) -->
+<div class="md:col-span-4 glass-panel rounded-xl p-card-padding relative overflow-hidden group flex flex-col justify-end animate-fade-in-up delay-100">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-500 z-0" data-alt="A futuristic, translucent blue holographic projection of a complex highway interchange floating above a dark, polished obsidian table. The hologram is detailed with glowing data nodes and wireframe structures. The lighting is moody and cinematic, emphasizing the glassmorphic depth and the advanced, high-stakes nature of predictive infrastructure modeling." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCG-mVP3OAaZ3MNknNjVGpNZjQWBMwBfuU3X4sCAcOqYTHiNYk-7C-ASWOTzdAmMfd5iP2mle23Qo48ewq3PkeRhPz0ji7NT4LnCH63utWh8p0waexK_MLC7X4yNbezop5LNlawlaQxqZjRCxN2jqzW2toTGNU5C9R3Zf5mrskVa9NN8UtD3Pyz4DMadY2wrLYbDdFoUsuMgIggOHe1f4Vdce3KVj5BzxO1PdLl3DCtuQQt_mB8KgtY1kR_HJPDbaxz_Rt4CuRbpSQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-10"></div>
+<div class="relative z-20">
+<span class="material-symbols-outlined text-secondary text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Digital Twin</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Live synchronization between physical assets and digital models.</p>
+</div>
+</div>
+<!-- Predictive Maintenance (Spans 6 cols) -->
+<div class="md:col-span-6 glass-panel rounded-xl p-card-padding relative overflow-hidden group flex flex-col justify-between animate-fade-in-up delay-200">
+<div class="flex justify-between items-start z-20">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">history_toggle_off</span>
+<div class="w-16 h-16 rounded-full border-4 border-surface-variant flex items-center justify-center relative">
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="75, 100" stroke-width="3"></path>
+</svg>
+<span class="font-label-md text-label-md text-secondary">75%</span>
+</div>
+</div>
+<div class="relative z-20">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Predictive Maintenance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Forecast wear and tear using historical data and live sensor feeds to optimize maintenance schedules.</p>
+</div>
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent z-0 pointer-events-none"></div>
+</div>
+<!-- Flood Prediction (Spans 6 cols) -->
+<div class="md:col-span-6 glass-panel rounded-xl p-card-padding relative overflow-hidden group flex flex-col justify-end animate-fade-in-up delay-300">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-500 z-0" data-alt="An abstract, high-tech visualization of water flow dynamics mapping a city's drainage system. The visualization uses dark navy and vibrant cyan glowing lines on a deep black background, resembling a complex neural network or topographical map. The scene has a sleek, glassmorphic aesthetic, conveying precise environmental intelligence and flood risk analysis." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD2QFuWdw0gfjc-RV-zX30qtr0_tk7wSDk10RWCCztA4QfTPbgIDr_70ZhOtTa083asH3ayddHY1QIfDhbWx7ksJGNDSYUc4X6oafrHUQiQob1ZIp5PxDz1z-AhZyKzKuYYiKFc4qcMRJyUnmn1i6aO_zDIK9uBQRPWUTtlSRcXHn4WVLuvMi7ngsgyHDWr95t6lDjiOuyUuYCeVo3wSXU0DJ4iwscXm8fat4ZVQUKmH3P0NEt31AHjli_WpB1Pixd2g0lTQ51bbN0')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-10"></div>
+<div class="relative z-20">
+<span class="material-symbols-outlined text-secondary text-3xl mb-2" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Flood Prediction</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Hydrological modeling integrated with weather APIs to predict structural stress during extreme weather events.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+        // Simple counter animation
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll('.stat-counter');
+            const speed = 200; // The lower the slower
+
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const isDecimal = counter.hasAttribute('data-decimal');
+                const count = +counter.innerText;
+                const inc = target / speed;
+
+                if (count < target) {
+                    if (isDecimal) {
+                        counter.innerText = (count + inc).toFixed(1);
+                    } else {
+                        counter.innerText = Math.ceil(count + inc);
+                    }
+                    setTimeout(() => animateCounter(counter), 1);
+                } else {
+                    if (isDecimal) {
+                        counter.innerText = target.toFixed(1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+            };
+
+            // Intersection Observer to start animation when in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target); // Run once
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        });
+    </script>
+</body></html>
